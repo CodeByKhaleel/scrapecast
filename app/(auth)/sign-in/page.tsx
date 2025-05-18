@@ -1,7 +1,20 @@
+'use client'
 import Link from 'next/link'
 import React from 'react'
+import prismaClient from '@/lib/prisma'
 import Image from 'next/image'
+import { signIn } from 'next-auth/react'
 const page = () => {
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn('google', {
+        callbackUrl: '/',
+        redirect: true,
+      })
+    } catch (error) {
+      console.error('Sign in error:', error)
+    }
+  }
   return (
     <main className='sign-in'>
       <aside className='testimonial'>
@@ -37,7 +50,7 @@ const page = () => {
         <h1>SnapCast</h1>
         </Link>
         <p>Create and share your very first <span>SnapCast</span> in no time!</p>
-        <button>
+        <button onClick={handleGoogleSignIn}>
           <Image src="/assets/icons/google.svg" alt='google' width={22} height={22} />
         <span>Sign in with Google</span>
         </button>
