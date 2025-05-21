@@ -7,6 +7,7 @@ const page = () => {
 const [error,setError] = useState(null);
 const handleInputChange = (e:ChangeEvent) =>{
     const {name,value} = e.target;
+
     setformData((prevState) => ({...prevState,[name]:value}))
 }
 const [formData, setformData] = useState({
@@ -14,6 +15,8 @@ const [formData, setformData] = useState({
     description: "",
     visibility:"public",
 })
+const video = {};
+const thumbnail={}
   return (
     <div className="wrapper-md upload-page">
         <h1>Upload the Video</h1>
@@ -31,11 +34,33 @@ const [formData, setformData] = useState({
             label="description"
             placeholder="Describe what this video is about"
             value={formData.description}
-            as="textarea"
+            as="textarea" 
             onChange={handleInputChange}
         />
-        <FileInput />
-        <FileInput />
+        <FileInput 
+            id='video'
+            label='Video'
+            accept='video/*'
+            file={video.file}
+            previewUrl={video.previewUrl}
+            inputRef={video.inputRef}
+            onChange ={video.handleFileChange}
+            onReset={video.resetFile}
+            type="video"
+
+        />
+        <FileInput 
+            id='thumbnail'
+            label='Thumbnail'
+            accept='images/*'
+            file={thumbnail.file}
+            previewUrl={thumbnail.previewUrl}
+            inputRef={thumbnail.inputRef}
+            onChange ={thumbnail.handleFileChange}
+            onReset={thumbnail.resetFile}
+            type="image"
+
+        />
         <FormField 
             id="visibility"
             label="visibility"
